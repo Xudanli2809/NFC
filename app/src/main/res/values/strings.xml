@@ -1,0 +1,76 @@
+<resources>
+    <string name="app_name">NFC</string>
+    <string name="dknfc_vxx">dknfc v2.1.0</string>
+    <string name="searchBle">搜索设备</string>
+    <string name="readNfc">加密验证</string>
+    <string name="writeNfc">普通验证</string>
+    <string name="clear">清空</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="menu_trending">Trending</string>
+    <string name="menu_most_star">Most Stars</string>
+    <string name="menu_account">Profile</string>
+    <string name="menu_search">Search</string>
+
+    <string name="settings">Settings</string>
+    <string name="profile">Profile</string>
+    <string name="search">Search</string>
+    <string name="load_searching">Searching</string>
+    <string name="loading">Loading</string>
+    <string name="sign_in">登录</string>
+    <string name="please_login">Please Login</string>
+    <string name="exit_click_back_again">Press Back again to exit application.</string>
+
+    <string name="repositories">%1$s \'s repositories</string>
+    <string name="your_stars">%1$s \'s stars</string>
+    <string name="following">%1$s \'s following</string>
+    <string name="followers">%1$s \'s followers</string>
+
+    <string name="forks_count">( %1$d )</string>
+    <string name="contributors_count">( %1$d )</string>
+    <string name="source_link">Source Link \n https://github.com/mingjunli/GithubApp</string>
+    <string name="night_mode">Night Mode</string>
+    <string name="clear_cache">Clear Cache</string>
+    <string name="upgrade">Check the Newest Version</string>
+    <string name="about">About This App</string>
+    <string name="github_com_v3">Api from Github Document \nhttps://developer.github.com/v3/</string>
+    <string name="no_copyright">\@copyright anly_jun</string>
+    <string name="make_it_better">Welcome to fork/star/pull request to make it better</string>
+    <string name="title_1">Welcome, Programmer</string>
+    <string name="title_font">CaviarDreams_Bold.ttf</string>
+    <string name="desc_1">Github is the programmer\'s facebook.</string>
+    <string name="desc_font">aller_It.ttf</string>
+    <string name="title_2">Here, Code is everything</string>
+    <string name="desc_2">Read the fucking source code.</string>
+    <string name="title_3">Let\'s coding</string>
+    <string name="desc_3">Talk is cheap, show me the code</string>
+    <string name="my_repositories">my repositories</string>
+    <string name="my_stars">my stars</string>
+    <string name="my_following">my following</string>
+    <string name="my_followers">my followers</string>
+    <string name="about_author">About Author</string>
+    <string name="title_activity_test">TestActivity</string>
+
+</resources>
