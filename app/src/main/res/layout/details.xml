@@ -2,24 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-
-    <RelativeLayout
+    android:layout_height="match_parent">
+    <android.support.percent.PercentRelativeLayout
         android:id="@+id/bar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="70dp"
         android:background="?attr/colorPrimary"
-        >
-
+        android:paddingBottom="@dimen/activity_vertical_margin">
         <TextView
             android:id="@+id/title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:text="检测详情"
             android:textColor="#fff"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentBottom="true"/>
         <Button
             android:id="@+id/back_button"
             android:layout_width="25dp"
@@ -27,9 +25,9 @@
             android:layout_marginLeft="10dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
             android:background="@drawable/ic_back"/>
-
-    </RelativeLayout>
+    </android.support.percent.PercentRelativeLayout>
 
     <ScrollView
         android:layout_below="@id/bar"
@@ -208,13 +206,8 @@
                 android:textSize="18sp"
                 />
         </TableRow>
-
-
     </TableLayout>
-
-
     </ScrollView>
-
     <Button
         android:id="@+id/btn_gofeed"
         android:layout_below="@id/uid_layout"
@@ -224,11 +217,12 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:text="填写反馈信息"
+        android:textSize="18sp"
         android:textColor="#ffff"
         />
-    <TextView
+ <!--   <TextView
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/respon"/>
+        android:id="@+id/respon"/>-->
 </RelativeLayout>

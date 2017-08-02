@@ -23,10 +23,10 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class BleNfcDeviceService extends Service {
 
-    public final static String ACTION_GATT_CONNECTED           = "com.dk.bleNfc.BleNfcDeviceService.ACTION_GATT_CONNECTED";
-    public final static String ACTION_GATT_DISCONNECTED        = "com.dk.bleNfc.BleNfcDeviceService.ACTION_GATT_DISCONNECTED";
-    public final static String ACTION_TAG_FIND_TAG             = "com.dk.bleNfc.BleNfcDeviceService.ACTION_TAG_FIND_TAG";
-    public final static String ACTION_TAG_LOSE_TAG             = "com.dk.bleNfc.BleNfcDeviceService.ACTION_TAG_LOSE_TAG";
+    public final static String ACTION_GATT_CONNECTED           = "com.jootu.nfc.BleNfcDeviceService.ACTION_GATT_CONNECTED";
+    public final static String ACTION_GATT_DISCONNECTED        = "com.jootu.nfc.BleNfcDeviceService.ACTION_GATT_DISCONNECTED";
+    public final static String ACTION_TAG_FIND_TAG             = "com.jootu.nfc.BleNfcDeviceService.ACTION_TAG_FIND_TAG";
+    public final static String ACTION_TAG_LOSE_TAG             = "com.jootu.nfc.BleNfcDeviceService.ACTION_TAG_LOSE_TAG";
 
     public static final String TAG = "BleNfcDeviceService";
     private final IBinder mBinder = new LocalBinder();

@@ -46,7 +46,8 @@
         </activity>
 
         <activity android:name=".MainActivity"></activity>
-        <activity android:name=".FeedBack"></activity>
+        <activity android:name=".FeedBack"
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".Detail"></activity>
         <service android:name=".BleNfcDeviceService" />
     </application>

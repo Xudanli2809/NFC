@@ -32,7 +32,7 @@ import com.jootu.nfc.DeviceManager.ComByteManager;
 import com.jootu.nfc.DeviceManager.DeviceManager;
 import com.jootu.nfc.DeviceManager.DeviceManagerCallback;
 import com.jootu.nfc.Exception.DeviceNoResponseException;
-import com.jootu.nfc.Json.Fire;
+
 import com.jootu.nfc.Tool.StringTool;
 import com.jootu.nfc.Card.Mifare;
 import com.jootu.nfc.Util.HttpUtil;
@@ -46,6 +46,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+//读取nfc卡信息界面
 public class MainActivity extends Activity {
     BleNfcDeviceService mBleNfcDeviceService;
     private BleNfcDevice bleNfcDevice;
@@ -54,7 +55,6 @@ public class MainActivity extends Activity {
     private EditText msgText = null;
     private ProgressDialog readWriteDialog = null;
     private AlertDialog.Builder alertDialog = null;
-
     private StringBuffer msgBuffer;
     private BluetoothDevice mNearestBle = null;
     private Lock mNearestBleLock = new ReentrantLock();// 锁对象
@@ -65,13 +65,13 @@ public class MainActivity extends Activity {
     private int userid;
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        userid=getIntent().getIntExtra("userid",userid);
+        Toast.makeText(MainActivity.this,"userid:"+userid,Toast.LENGTH_SHORT).show();
 
         msgBuffer = new StringBuffer();
 
@@ -119,15 +119,13 @@ public class MainActivity extends Activity {
         openAutoSearchCard.setOnClickListener(new OpenAutoSearchCardButtonListener());
         closeAutoSearchCard.setOnClickListener(new CloseAutoSearchCardButtonListener());
 
-        userid=getIntent().getIntExtra("userid",userid);
-        Toast.makeText(MainActivity.this,"userid:"+userid,Toast.LENGTH_SHORT).show();
 
 
         //ble_nfc服务初始化
         Intent gattServiceIntent = new Intent(this, BleNfcDeviceService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
 
-        msgText.setText("BLE_NFC Demo v2.0.0 20170410");
+        msgText.setText("Jootu_NFC v1.0.0");
 
 
 

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,32 +46,12 @@ public class Login extends Activity {
         pwd = (EditText) findViewById(R.id.password);
         respon=(TextView)findViewById(R.id.respon);
         Button btn=(Button)findViewById(R.id.login_btn);
+        final String address = "http://fc.jootu.tech/api/admin/api_login";
+        //登录按钮点击事件
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String address = "http://fc.jootu.tech/api/admin/api_login";
                 userOkHttpRequest(address);
-                if(userid!=0){
-                    Toast.makeText(Login.this,"登录成功"+userid,Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(Login.this,MainActivity.class);
-                    intent.putExtra("userid",userid);
-                    startActivity(intent);
-                }else{
-                    Toast.makeText(Login.this,"用户名或密码错误",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-    }
-
-
-    public void showResponse(final String response){
-        //调用runOnUiThread方法，把更新ui的代码创建在Runnable中，Runnable对像就能在ui程序中被调用。
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                //在这里进行UI操作，将结果显示在屏幕上
-                respon.setText(response);
             }
         });
     }
@@ -83,9 +64,7 @@ public class Login extends Activity {
                 try {
                     OkHttpClient client=new OkHttpClient();
                     username = user.getText().toString().trim();
-                    /*Log.e("username:", username);*/
                     password = pwd.getText().toString().trim();
-                    /*Log.e("password:", password);*/
                     RequestBody requestBody=new FormBody.Builder()
                             .add("name",username)
                             .add("password",password)
@@ -94,12 +73,13 @@ public class Login extends Activity {
                             .url(address)
                             .post(requestBody)
                             .build();
-                    Response response=client.newCall(request).execute();
-                    String responseText = response.body().string();
-                    showResponse(responseText);
+                        Response response=client.newCall(request).execute();
+                        String responseText = response.body().string();
+                        /*showResponse(responseText);*/
                     try {
                         JSONObject jsonObject = new JSONObject(responseText);
                         userid= jsonObject.getInt("id");
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -107,18 +87,24 @@ public class Login extends Activity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                Log.e("userid",String.valueOf(userid));
 
+                //根据请求之后服务器返回结果，判断是否登录成功
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //在这里进行UI操作，将结果显示在屏幕上
+                        if(userid!=0){
+                            Toast.makeText(Login.this,"登录成功",Toast.LENGTH_SHORT).show();
+                            Intent intent=new Intent(Login.this,MainActivity.class);
+                            intent.putExtra("userid",userid);
+                            startActivity(intent);
+                        }else{
+                            Toast.makeText(Login.this,"用户名或密码错误",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         }).start();
-
     }
-
 }
-
-
-
-
-
-
-
-

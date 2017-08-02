@@ -3,6 +3,8 @@ package com.jootu.nfc;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -15,7 +17,6 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.jootu.nfc.Json.Fire;
 import com.jootu.nfc.Util.HttpUtil;
 
 import org.json.JSONArray;
@@ -29,74 +30,73 @@ import okhttp3.Response;
 
 import static com.jootu.nfc.Util.HttpUtil.sendOkHttpRequest;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
+//获取灭火的具体信息界面
 public class Detail extends Activity {
     private TextView mid;
     private TextView mfire_type_id;
     private TextView maddress;
     private TextView mlocation;
     private TextView mcreated_at;
-
     private TextView respon;
-
     private TextView mtype_id;
     private TextView mtype;
     private TextView mfire_level;
     private TextView magent;
     private TextView mtemperature;
     private TextView mspecifications;
-
+    private Button back;
     private ScrollView muid_layout;
-
     private String muid;
     private Button gofeed;
     public String nid;
     private int userid;
 
 
-
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.details);
+        ////使背景图和状态栏融合到一起，这个功能只有API21(android 5.0)及以上版本才支持
+        if(Build.VERSION.SDK_INT>=21){
+            View decorView=getWindow().getDecorView();//拿到当前活动的DecorView
+            decorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LAYOUT_STABLE);//表示当前活动的布局会显示在状态栏上面
+            getWindow().setStatusBarColor(Color.TRANSPARENT);//将状态栏设置成透明色
+        }
+
+
 
         //初始化各种控件
         mid=(TextView)findViewById(R.id.id);
-
         mfire_type_id=(TextView)findViewById(R.id.fire_type_id);
         maddress=(TextView)findViewById(R.id.address);
         mlocation=(TextView)findViewById(R.id.location);
         mcreated_at=(TextView)findViewById(R.id.created_at);
-
         mtype_id=(TextView)findViewById(R.id.type_id);
         mtype=(TextView)findViewById(R.id.type);
         mfire_level=(TextView)findViewById(R.id.fire_level);
         magent=(TextView)findViewById(R.id.agent);
         mtemperature=(TextView)findViewById(R.id.temperature);
         mspecifications=(TextView)findViewById(R.id.specifications);
-
         respon=(TextView)findViewById(R.id.respon);
         gofeed=(Button)findViewById(R.id.btn_gofeed);
         muid_layout=(ScrollView)findViewById(R.id.uid_layout);
+        back=(Button)findViewById(R.id.back_button);
 
-        //根据uid，请求uid对应的灭火器信息
 
         /*muid=getIntent().getStringExtra("uid");*/
+        //获取MainActivity传过来的uid，以及userid
         Bundle bd=getIntent().getExtras();
         userid=bd.getInt("user_id");
         muid=bd.getString("uid");
-        Toast.makeText(Detail.this,"aaa"+userid,Toast.LENGTH_SHORT).show();
+        /*Toast.makeText(Detail.this,"aaa"+userid,Toast.LENGTH_SHORT).show();*/
         muid_layout.setVisibility(View.VISIBLE);
 
+        //根据uid请求灭火器对应信息
         requestUid(muid);
 
 
+        //调转到提交反馈信息的界面
         gofeed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,7 +108,15 @@ public class Detail extends Activity {
                 startActivity(intent);
             }
         });
-
+        //左上角返回键的点击事件
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Detail.this,MainActivity.class);
+                intent.putExtra("userid",userid);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -119,6 +127,7 @@ public class Detail extends Activity {
         String address="http://fc.jootu.tech/api/admin/query_fire?fire_uid="+fire_uid;
         Log.e("address:",address);
 
+        //向服务器发送请求
         HttpUtil.sendOkHttpRequest(address, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -156,13 +165,10 @@ public class Detail extends Activity {
                         }*/
                     }
                 });
-
             }
         });
-
     }
-
-
+    //将服务器返回的源码显示在屏幕上
    /* public void showResponse(final String response){
         //调用runOnUiThread方法，把更新ui的代码创建在Runnable中，Runnable对像就能在ui程序中被调用。
         runOnUiThread(new Runnable() {
@@ -174,6 +180,7 @@ public class Detail extends Activity {
         });
     }*/
 
+    //解析json数据
     public String handleIdResponse(String response){
 
         try{
@@ -181,9 +188,9 @@ public class Detail extends Activity {
             JSONArray jsonArray=new JSONArray(response);
             for(int i=0;i<jsonArray.length();i++){
                 JSONObject jsonObject=jsonArray.getJSONObject(i);
+                //取得json数据
                 nid=jsonObject.getString("id");
                 String nuid=jsonObject.getString("uid");
-
                 String nfire_type_id=jsonObject.getString("fire_type_id");
                 String naddress=jsonObject.getString("address");
                 String nlocation=jsonObject.getString("location");
@@ -195,7 +202,7 @@ public class Detail extends Activity {
                 String ntemperature=jsonObject.getString("temperature");
                 String nspecifications=jsonObject.getString("specifications");
 
-                //将解析出来的数据，放入控件中
+                //将解析出来的json数据，放入控件中
                 mid.setText(nid);
                 /*mmuid.setText(nuid);*/
                 mfire_type_id.setText(nfire_type_id);
@@ -215,8 +222,5 @@ public class Detail extends Activity {
         }
         return null;
     }
-
-
-
 
 }

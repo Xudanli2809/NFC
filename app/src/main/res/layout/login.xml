@@ -4,10 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ba"
+    android:background="@color/colorPrimary"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    >
+    android:fitsSystemWindows="true">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/nav_icon"/>
+                android:src="@drawable/fire"/>
 
             <android.support.design.widget.TextInputLayout
 
